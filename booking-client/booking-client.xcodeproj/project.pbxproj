@@ -30,11 +30,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		3AE0404C2DE7998C001EE363 /* booking-client */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "booking-client";
-			sourceTree = "<group>";
-		};
 		3AE040602DE7998D001EE363 /* booking-clientTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "booking-clientTests";
@@ -43,6 +38,11 @@
 		3AE0406A2DE7998D001EE363 /* booking-clientUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "booking-clientUITests";
+			sourceTree = "<group>";
+		};
+		3AE0409C2DE79D6F001EE363 /* booking-client */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "booking-client";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,7 +75,7 @@
 		3AE040412DE7998C001EE363 = {
 			isa = PBXGroup;
 			children = (
-				3AE0404C2DE7998C001EE363 /* booking-client */,
+				3AE0409C2DE79D6F001EE363 /* booking-client */,
 				3AE040602DE7998D001EE363 /* booking-clientTests */,
 				3AE0406A2DE7998D001EE363 /* booking-clientUITests */,
 				3AE0404B2DE7998C001EE363 /* Products */,
@@ -108,7 +108,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				3AE0404C2DE7998C001EE363 /* booking-client */,
+				3AE0409C2DE79D6F001EE363 /* booking-client */,
 			);
 			name = "booking-client";
 			packageProductDependencies = (

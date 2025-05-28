@@ -12,13 +12,13 @@ import SwiftData
 final class Recipient {
     @Attribute(.unique) var id: UUID
     var name: String
-    var emailAdress: String
+    var emailAddress: String
     var salutation: String
     
     init(id: UUID, name: String, emailAdress: String, salutation: String) {
         self.id = id
         self.name = name
-        self.emailAdress = emailAdress
+        self.emailAddress = emailAdress
         self.salutation = salutation
     }
 }
