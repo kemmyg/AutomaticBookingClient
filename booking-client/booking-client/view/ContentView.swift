@@ -39,64 +39,64 @@ struct ContentView: View {
 
 
     var body: some View {
-        NavigationView {
-            VStack {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 20) {
-                        Text("Empfänger")
-                            .font(.headline)
-                        List(recipients, selection: $selectedRecipient) { recipient in
-                            Text(recipient.name).tag(recipient) // tag für selection
+            NavigationSplitView {
+                // LEFT PANE (Sidebar)
+                List(selection: $selectedTemplate) {
+//                    Section("Empfänger") {
+//                        ForEach(recipients, id: \.id) { recipient in
+//                            Text(recipient.name)
+//                                .tag(recipient as Recipient?)
+//                        }
+//                    }
+
+                    Section("Vorlagen") {
+                        ForEach(templates, id: \.id) { template in
+                            Text(template.name)
+                                .tag(template as EmailTemplate?)
                         }
-                        
-                        .frame(height: 100)
-                        
-                        Text("Vorlagen")
-                            .font(.headline)
-                        List(templates, selection: $selectedTemplate) { template in
-                            Text(template.name).tag(template)
-                        }
-                        
-                        .frame(height: 100)
-                        
-                        if let template = selectedTemplate {
-                            
-                        }
-                        
+                    }
+                }
+                .listStyle(.sidebar)
+            } detail: {
+                // RIGHT PANE (Detail)
+                VStack(alignment: .leading, spacing: 20) {
+                    if let template = selectedTemplate {
+                        EmailTemplateEditor(template: template)
+
                         Button("E-Mail erstellen & Vorschau") {
-                            if let recipient = selectedRecipient, let template = selectedTemplate {
-                                let emailContent = template.fillTemplate(recipient: recipient)
-                                personalizedEmailSubject = emailContent.subject
-                                personalizedEmailBody = emailContent.body
+                            if let recipient = selectedRecipient {
+                                let result = template.fillTemplate(recipient: recipient)
+                                personalizedEmailSubject = result.subject
+                                personalizedEmailBody = result.body
                             }
                         }
-                        .disabled(selectedRecipient == nil || selectedTemplate == nil)
-                        
-                        Divider()
-                        
+                        .disabled(selectedRecipient == nil)
+
                         Text("Vorschau:")
                             .font(.headline)
-                        Text("Betreff: \(personalizedEmailSubject)")
+
+                        Text("Betreff: \(personalizedEmailSubject)").bold()
+
                         ScrollView {
                             Text(personalizedEmailBody)
+                                .padding()
+                                .background(Color.gray.opacity(0.05))
+                                .cornerRadius(8)
                         }
-                        
-                        Spacer() // Schiebt alles nach oben
-                        
-                        // Hier kommt der Senden-Button
-                        EmailSenderView(recipient: selectedRecipient, subject: personalizedEmailSubject, mailBody: personalizedEmailBody)
-                        
+
+                        EmailSenderView(
+                            recipient: selectedRecipient,
+                            subject: personalizedEmailSubject,
+                            mailBody: personalizedEmailBody
+                        )
+                    } else {
+                        Text("Bitte eine Vorlage auswählen.")
+                            .foregroundColor(.secondary)
                     }
-                    .padding()
-                    .frame(minWidth: 300) // Mindestbreite für die Seitenleiste/Hauptansicht
-                    
-                    // Detailansicht oder Platzhalter, falls benötigt
-                    Text("Wähle einen Empfänger und eine Vorlage, um eine E-Mail zu erstellen.")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
+                .padding()
             }
         }
-    }
 }
 
 // Erweitere Recipient und EmailTemplate um Hashable für die Verwendung in List(selection:)
